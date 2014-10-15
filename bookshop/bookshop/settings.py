@@ -28,6 +28,11 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -49,6 +54,7 @@ from oscar import OSCAR_MAIN_TEMPLATE_DIR
 
 TEMPLATE_DIRS = (
     location('templates'),
+    os.path.join(OSCAR_MAIN_TEMPLATE_DIR, 'templates'),
     OSCAR_MAIN_TEMPLATE_DIR,
 )
 
@@ -69,7 +75,10 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'south',
     'compressor',
-] + get_core_apps()
+    'paypal',
+] + get_core_apps([
+    'apps.shipping',
+    'apps.checkout'])
 
 
 MIDDLEWARE_CLASSES = (
@@ -157,3 +166,37 @@ OSCAR_SHOP_NAME = 'Port Bookstore'
 OSCAR_SHOP_TAGLINE = 'Great Books for Geeks!'
 OSCAR_DEFAULT_CURRENCY = 'USD'
 OSCAR_CURRENCY_LOCALE = 'en_US'
+
+# PayPal Payflow
+OSCAR_ALLOW_ANON_CHECKOUT = True
+
+# Taken from PayPal's documentation - these should always work in the sandbox
+PAYPAL_SANDBOX_MODE = True
+PAYPAL_CALLBACK_HTTPS = False
+PAYPAL_API_VERSION = '88.0'
+
+PAYPAL_API_USERNAME = 'portbookstore'
+PAYPAL_API_PASSWORD = 'p@ssword'
+
+PAYPAL_PAYFLOW_VENDOR_ID = 'portbookstore'
+PAYPAL_PAYFLOW_PASSWORD = 'p@ssword'
+
+PAYPAL_PAYFLOW_DASHBOARD_FORMS = True
+
+# Add Payflow dashboard stuff to settings
+from django.utils.translation import ugettext_lazy as _
+OSCAR_DASHBOARD_NAVIGATION.append(
+    {
+        'label': _('PayPal'),
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': _('PayFlow transactions'),
+                'url_name': 'paypal-payflow-list',
+            },
+            {
+                'label': _('Express transactions'),
+                'url_name': 'paypal-express-list',
+            },
+        ]
+    })
