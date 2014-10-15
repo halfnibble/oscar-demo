@@ -151,3 +151,9 @@ OSCAR_ORDER_STATUS_PIPELINE = {
     'Being processed': ('Processed', 'Cancelled',),
     'Cancelled': (),
 }
+
+# Override Oscar settings
+OSCAR_SHOP_NAME = 'Port Bookstore'
+OSCAR_SHOP_TAGLINE = 'Great Books for Geeks!'
+OSCAR_DEFAULT_CURRENCY = 'USD'
+OSCAR_CURRENCY_LOCALE = 'en_US'
