@@ -17,7 +17,7 @@ location = lambda x: os.path.join(
     os.path.dirname(os.path.realpath(__file__)), x)
 
 # Retreive secret settings
-import .secret
+from .secret import *
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
