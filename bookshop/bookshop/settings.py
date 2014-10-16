@@ -16,12 +16,11 @@ PROJECT_DIR = os.path.dirname(__file__)
 location = lambda x: os.path.join(
     os.path.dirname(os.path.realpath(__file__)), x)
 
+# Retreive secret settings
+import .secret
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!14n9y!-^gzn1!1v#b$0l1+e&ixn%#e-t$&z*n23ps#*_5eepr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -109,8 +108,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'oscar_demo',
-        'USER': 'dbadmin',
-        'PASSWORD': 'p@ssword',
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWORD,
         'HOST': '',
         'PORT': '',
         'ATOMIC_REQUESTS': True,  # Django 1.6+
@@ -174,12 +173,6 @@ OSCAR_ALLOW_ANON_CHECKOUT = True
 PAYPAL_SANDBOX_MODE = True
 PAYPAL_CALLBACK_HTTPS = False
 PAYPAL_API_VERSION = '88.0'
-
-PAYPAL_API_USERNAME = 'portbookstore'
-PAYPAL_API_PASSWORD = 'p@ssword'
-
-PAYPAL_PAYFLOW_VENDOR_ID = 'portbookstore'
-PAYPAL_PAYFLOW_PASSWORD = 'p@ssword'
 
 PAYPAL_PAYFLOW_DASHBOARD_FORMS = True
 
